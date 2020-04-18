@@ -417,7 +417,7 @@ class Control(metaclass=Singleton):
         self.poll_normal = int(poll_interval)
         self.ready_flag = True
         self.opc_client = opc_client
-        self.mqtt_client = mqtt_client
+        #self.mqtt_client = mqtt_client
 
     # Change polling interval based on the configuration file
     def changePollInterval(self):
@@ -432,14 +432,14 @@ class Control(metaclass=Singleton):
         try:
             # Login
             self.opc_client.login()
-            self.mqtt_client.login()
+            #self.mqtt_client.login()
             self.ready_flag = True
             logging.info("MQTT and OPC connections have been established")
         except Exception as e:
             logging.error("Unable to login to a remote server -> " + str(e))
             sys.exit(1)
         try:
-            self.mqtt_client.subscribe()
+            pass #self.mqtt_client.subscribe()
         except Exception as e:
             logging.error("Unable to subscribe to a remote server -> " + str(e))
             sys.exit(1)
@@ -452,7 +452,7 @@ class Control(metaclass=Singleton):
                 # Read OPC data
                 data = self.opc_client.pollData()
                 # Send them via MQTT
-                self.mqtt_client.sendData(data)
+                #self.mqtt_client.sendData(data)
                 logging.debug("MQTT data have been send -> " + str(data))
                 # Sleep before the next poll
                 time.sleep(int(self.poll_interval))
@@ -467,7 +467,7 @@ class Control(metaclass=Singleton):
         try:
             # Logout
             self.opc_client.logout()
-            self.mqtt_client.logout()
+            #self.mqtt_client.logout()
             logging.info("MQTT and OPC connection have been closed")
 
         except Exception as e:
@@ -497,7 +497,8 @@ if __name__ == "__main__":
     # Create opc, snmp mqtt client objects 
     snmp_client = SnmpClient(general["gw_ip"],general["community"])
     opc_client = OpcClient(general["opc_server"],variables,settings,general["persistency"],general["history_length"])
-    mqtt_client = MqttClient(general["mqtt_broker"],general["mqtt_port"],general["topic_name"],snmp_client)
+    #mqtt_client = MqttClient(general["mqtt_broker"],general["mqtt_port"],general["topic_name"],snmp_client)
+    mqtt_client = None
     logging.debug("OPC and MQTT objects has been created")
 
     # Create control object and start process
