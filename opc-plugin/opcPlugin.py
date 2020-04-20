@@ -350,7 +350,7 @@ class Control(metaclass=Singleton):
         try:
             # Login
             self.opc_client.login()
-            self.mqtt_client.login()
+            #self.mqtt_client.login()
             self.ready_flag = True
             logging.info("MQTT and OPC connections have been established")
         except Exception as e:
@@ -358,7 +358,7 @@ class Control(metaclass=Singleton):
             logging.error("Unable to login to a remote server -> " + str(e))
             sys.exit(1)
         try:
-            self.mqtt_client.subscribe()
+            pass #self.mqtt_client.subscribe()
         except Exception as e:
             logging.error("Unable to subscribe to a remote server -> " + str(e))
             sys.exit(1)
@@ -371,7 +371,7 @@ class Control(metaclass=Singleton):
                 # Read OPC data
                 data = self.opc_client.pollData()
                 # Send them via MQTT
-                self.mqtt_client.sendData(data)
+                #self.mqtt_client.sendData(data)
                 logging.debug("MQTT data have been send -> " + str(data))
                 # Sleep before the next poll
                 time.sleep(int(self.poll_interval))
@@ -386,7 +386,7 @@ class Control(metaclass=Singleton):
         try:
             # Logout
             self.opc_client.logout()
-            self.mqtt_client.logout()
+            #self.mqtt_client.logout()
             logging.info("MQTT and OPC connection have been closed")
 
         except Exception as e:
@@ -414,7 +414,8 @@ if __name__ == "__main__":
 
     # Create opc and mqtt client objects 
     opc_client = OpcClient(general["opc_server"],variables,settings)
-    mqtt_client = MqttClient(general["mqtt_broker"],general["mqtt_port"],general["topic_name"])
+    #mqtt_client = MqttClient(general["mqtt_broker"],general["mqtt_port"],general["topic_name"])
+    mqtt_client = None
     logging.debug("OPC and MQTT objects has been created")
 
     # Create control object and start process

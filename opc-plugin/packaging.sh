@@ -1,9 +1,9 @@
 #!/bin/bash
 
-FILE1=full/path/to/iot-app-server/opc-plugin/Dockerfile
-FILE2=full/path/to/iot-app-server/opc-plugin/opcPlugin.py
-FILE3=full/path/to/iot-app-server/opc-plugin/package_config.ini
-FILE4=full/path/to/iot-app-server/opc-plugin/requirements.txt
+FILE1=Dockerfile
+FILE2=opcPlugin.py
+FILE3=package_config.ini
+FILE4=requirements.txt
 if [ -f "$FILE1" -a -f "$FILE2" -a -f "$FILE3" -a -f "$FILE4" ]; then
 	echo "$FILE1"
 	echo "$FILE2"
@@ -21,8 +21,8 @@ fi
 echo 'descriptor-schema-version: "2.7"
 
 info:
-  name: "iox_opc_app"
-  description: "OPC/UA to MQTT plugin"
+  name: "iox_opc_app_no_mqtt"
+  description: "OPC/UA test"
   version: "1.0"
   author-link: "http://www.cisco.com"
   author-name: "CSAP Tiger Team"
