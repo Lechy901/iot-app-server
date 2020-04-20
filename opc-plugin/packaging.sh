@@ -21,8 +21,8 @@ fi
 echo 'descriptor-schema-version: "2.7"
 
 info:
-  name: "iox_opc_app"
-  description: "OPC/UA to MQTT plugin"
+  name: "iox_opc_app_no_mqtt"
+  description: "OPC/UA test"
   version: "1.0"
   author-link: "http://www.cisco.com"
   author-name: "CSAP Tiger Team"
@@ -32,6 +32,7 @@ app:
   type: "docker"
   resources:
     profile: c1.tiny
+    disk: 5
     network:
       - interface-name: eth0
         ports: {}
